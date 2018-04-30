@@ -30,7 +30,7 @@ encoding = "0.2"
 failure = "0.1"
 futures = "0.1"
 log = "0.3"
-native-tls = "0.1"
+native-tls = { git = "https://github.com/sfackler/rust-native-tls.git" }
 serde = "1.0"
 serde_derive = "1.0"
 serde_json = { version = "1.0", optional = true }

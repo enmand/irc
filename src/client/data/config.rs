@@ -86,6 +86,8 @@ pub struct Config {
     /// Whether or not to use SSL.
     /// Clients will automatically panic if this is enabled without SSL support.
     pub use_ssl: Option<bool>,
+    /// If the SSL connection should be verified when connecting
+    pub ssl_verify: Option<bool>,
     /// The path to the SSL certificate for this server in DER format.
     pub cert_path: Option<String>,
     /// The path to a SSL certificate to use for CertFP client authentication in DER format.
@@ -418,6 +420,11 @@ impl Config {
         self.use_ssl.as_ref().cloned().unwrap_or(false)
     }
 
+    /// Gets whether or not the SSL connection should be verified
+    pub fn ssl_verify(&self) -> bool {
+        self.ssl_verify.as_ref().cloned().unwrap_or(true)
+    }
+
     /// Gets the path to the SSL certificate in DER format if specified.
     pub fn cert_path(&self) -> Option<&str> {
         self.cert_path.as_ref().map(|s| &s[..])
@@ -570,6 +577,7 @@ mod test {
             server: Some(format!("irc.test.net")),
             port: Some(6667),
             use_ssl: Some(false),
+            ssl_verify: Some(true),
             cert_path: None,
             client_cert_path: None,
             client_cert_pass: None,
